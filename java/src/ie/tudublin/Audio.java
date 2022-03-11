@@ -126,6 +126,7 @@ public class Audio extends PApplet
                         px = x;
                         py = y;
                     }
+                    break;
             }
         case 3:
             background(0);
@@ -135,8 +136,9 @@ public class Audio extends PApplet
             float c = map(smoothedAmplitude, 0, 0.5f, 0, 255);
             stroke(c, 255, 255);
             circle(cx, cy, r);
+            break;
+
         case 4:
-        
             background(0);
             strokeWeight(2);
             for(int i = 0 ; i < ab.size() ; i +=10)
@@ -144,18 +146,50 @@ public class Audio extends PApplet
                 //float c = map(ab.get(i), -1, 1, 0, 255);
                 float cc = map(i, 0, ab.size(), 0, 255);
                 stroke(cc, 255, 255);
-                float f = lerpedBuffer[i] * halfH * 4.0f;
-                line(i, halfH + f, i, halfH - f);
+                float f = map(smoothedAmplitude, 0, 0.5f, 0, 255);
+                //line(i, halfH + f, i, halfH - f);
                 fill(cc);
                 circle(i, halfH + f, 5);                    
                 circle(i, halfH - f, 5);                    
             }
             break;
 
-        }
-        
+        case 5:
 
-
+            noStroke();
+            fill(0, 5);
+            rect(0,0,width,height);
+            pushMatrix();
+            translate(width/2, height/2);
+            rotate(radians(frameCount % 360 * 2));
+            //float c = map(i, 0, ab.size(), 0, 255);
+            for(int j = 0; j < 360; j++) {
+                
+                if(ap.mix.get(j)*200 > 50) {
+                stroke(20,255,255);
+                }
+                else {
+                stroke(100,255,255);
+                }
+                
+                line(cos(j)*50, sin(j)*50, cos(j)*abs(ap.left.get(j))*200 + cos(j)*50, sin(j)*abs(ap.right.get(j))*200 + sin(j)*50);
+            }
+            for(int k = 360; k > 0; k--) {
+                
+                
+                if(ap.mix.get(k)*200 > 25) {
+                stroke(150,255,255);
+                }
+                else {
+                stroke(200,255,255);
+                }
+                
+                line(cos(k)*50, sin(k)*50, cos(k)*abs(ap.right.get(k))*200 + cos(k)*50, sin(k)*abs(ap.left.get(k))*200 + sin(k)*50);   
+            }
+            
+            popMatrix();
+            
+            }
         
         // Other examples we made in the class
         /*
