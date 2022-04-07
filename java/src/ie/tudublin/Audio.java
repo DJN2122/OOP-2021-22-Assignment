@@ -41,8 +41,8 @@ public class Audio extends PApplet
 
     public void settings()
     {
-        size(1024, 1000, P3D);
-        //fullScreen(P3D, SPAN);
+        //size(1024, 1000, P3D);
+        fullScreen(P3D, SPAN);
     }
 
     public void setup()
@@ -158,7 +158,46 @@ public class Audio extends PApplet
                 circle(i, halfH - f, 5);                    
             }
             break;
+        case 7:
+            {
+                background(0);
+                strokeWeight(2);
+                stroke(255, 255, 255);
+                for(int i = 0 ; i < ab.size() ; i += 10)
+                {
+                    float f = map(smoothedAmplitude, 0, 0.5f, 0, 500);
+                    noFill();
+                    rectMode(CENTER);
+                    float sqSize = f;
+                    float halfSize = f/2;
 
+                    //sqSize += 5;
+                    //halfSize += 5;
+                    square(cx, cy, sqSize);
+                    line(cx + halfSize, cy + halfSize, width, height);
+                    line(cx + halfSize, cy - halfSize, width, 0);
+                    line(cx - halfSize, cy - halfSize, 0, 0);
+                    line(cx - halfSize, cy + halfSize, 0, height);
+
+                }
+                break;
+            }
+        case 6:
+            {
+                background(0);
+                strokeWeight(2);
+                double i=0;float k=0;
+                float x;
+                float y;
+                x=(float)(k*Math.cos(i)+960);
+                y=(float)(k*Math.sin(i)+500);
+                println(i);
+                point(x,y);
+                i=i+(Math.PI)/(180);
+                k=k+(40f/360f);
+
+                break;
+            }
         case 5:
 
             noStroke();
@@ -223,7 +262,32 @@ public class Audio extends PApplet
             }
 
             break;
-        } 
+        }
+        case 7:
+        {
+            background(0);
+            strokeWeight(2);
+            stroke(255, 255, 255);
+            for(int i = 0 ; i < ab.size() ; i += 10)
+            {
+                float f = map(smoothedAmplitude, 0, 0.5f, 0, 500);
+                noFill();
+                rectMode(CENTER);
+                float sqSize = f;
+                float halfSize = f/2;
+
+                //sqSize += 5;
+                //halfSize += 5;
+                square(cx, cy, sqSize);
+                line(cx + halfSize, cy + halfSize, width, height);
+                line(cx + halfSize, cy - halfSize, width, 0);
+                line(cx - halfSize, cy - halfSize, 0, 0);
+                line(cx - halfSize, cy + halfSize, 0, height);
+
+            }
+            break;
+        }
+
         
     }        
 }
