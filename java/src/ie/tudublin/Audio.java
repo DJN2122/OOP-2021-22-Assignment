@@ -41,8 +41,8 @@ public class Audio extends PApplet
 
     public void settings()
     {
-        size(1024, 1000 ); //P3D );
-        //fullScreen(P3D, SPAN);
+        //size(1024, 1000, P3D);
+        fullScreen(SPAN); //P3D
     }
 
     public void setup()
@@ -97,6 +97,7 @@ public class Audio extends PApplet
                     line(i, halfH + f, i, halfH - f);                    
                 }
                 break;
+
         case 1:
             background(0);
             for(int i = 0 ; i < ab.size() ; i ++)
@@ -108,6 +109,7 @@ public class Audio extends PApplet
                 line(i, halfH + f, halfH - f, i);                    
             }
             break;
+
         case 2:
             {
                     float c = map(smoothedAmplitude, 0, 0.5f, 0, 255);
@@ -133,6 +135,7 @@ public class Audio extends PApplet
                     }
                     break;
             }
+
         case 3:
             background(0);
             strokeWeight(2);
@@ -159,8 +162,23 @@ public class Audio extends PApplet
             }
             break;
 
-        case 5:
-
+            case 5:
+            {
+                background(0);
+                strokeWeight(2);
+                double i=0;float k=0;
+                float x;
+                float y;
+                x=(float)(k*Math.cos(i)+960);
+                y=(float)(k*Math.sin(i)+500);
+                println(i);
+                point(x,y);
+                i=i+(Math.PI)/(180);
+                k=k+(40f/360f);
+                
+                break;
+            }
+            case 6:
             noStroke();
             fill(0, 5);
             rect(0,0,width,height);
@@ -171,10 +189,10 @@ public class Audio extends PApplet
             for(int j = 0; j < 360; j++) {
                 
                 if(ap.mix.get(j)*200 > 50) {
-                stroke(20,255,255);
+                    stroke(20,255,255);
                 }
                 else {
-                stroke(100,255,255);
+                    stroke(100,255,255);
                 }
                 
                 line(cos(j)*50, sin(j)*50, cos(j)*abs(ap.left.get(j))*200 + cos(j)*50, sin(j)*abs(ap.right.get(j))*200 + sin(j)*50);
@@ -184,9 +202,9 @@ public class Audio extends PApplet
                 
                 if(ap.mix.get(k)*200 > 25) {
                 stroke(150,255,255);
-                }
+            }
                 else {
-                stroke(200,255,255);
+                    stroke(200,255,255);
                 }
                 
                 line(cos(k)*50, sin(k)*50, cos(k)*abs(ap.right.get(k))*200 + cos(k)*50, sin(k)*abs(ap.left.get(k))*200 + sin(k)*50);   
@@ -194,37 +212,32 @@ public class Audio extends PApplet
             
             popMatrix();
             break;
-        
-        case 6:
-        {
-            background(0);
-            
-            for (int i = 0; i < ab.size(); i += 10)
+               
+        case 7:
             {
+                background(0);
+                strokeWeight(3);
+                
+                for(int i = 0 ; i < ab.size() ; i += 10)
+                {
+                    float f = map(smoothedAmplitude, 0, 0.5f, 0, 750);
+                    float cc = map(smoothedAmplitude, 0, 0.5f, 0, 255);
+                    stroke(cc, 255, 255);
+                    noFill();
+                    rectMode(CENTER);
+                    float sqSize = f;
+                    float halfSize = f/2;
 
+                    square(cx, cy, sqSize);
+                    line(cx + halfSize, cy + halfSize, width, height);
+                    line(cx + halfSize, cy - halfSize, width, 0);
+                    line(cx - halfSize, cy - halfSize, 0, 0);
+                    line(cx - halfSize, cy + halfSize, 0, height);
 
-                float f = lerpedBuffer[i] * halfH * 7.5f;
-                float col = map(i, 0, ab.size(), 0, 255);
-                stroke(col, 128, 127);
-                strokeWeight(2);
-
-                float modW = width + f;
-                float modH = height + f;
-                float zeroPoint = 0 + f;
-
-                modH += f * 1.3;
-                modW += f * 1.3;
-                // Makes stars appear randomly on screen
-                circle(i, halfH * f, 5);
-
-                // Butterfly wings made with lines
-                line(halfH, width/2, zeroPoint, modH/2);
-                line(halfH, width/2, modW/2, zeroPoint);
-            }
-
-            break;
-        } 
         
-    }        
+                }
+                break;
+            }
+    }
 }
 }
