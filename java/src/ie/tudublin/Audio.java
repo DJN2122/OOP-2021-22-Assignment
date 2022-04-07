@@ -42,7 +42,7 @@ public class Audio extends PApplet
     public void settings()
     {
         //size(1024, 1000, P3D);
-        fullScreen(P3D, SPAN);
+        fullScreen(SPAN); //P3D
     }
 
     public void setup()
@@ -216,23 +216,24 @@ public class Audio extends PApplet
         case 7:
             {
                 background(0);
-                strokeWeight(2);
-                stroke(255, 255, 255);
+                strokeWeight(3);
+                
                 for(int i = 0 ; i < ab.size() ; i += 10)
                 {
-                    float f = map(smoothedAmplitude, 0, 0.5f, 0, 500);
+                    float f = map(smoothedAmplitude, 0, 0.5f, 0, 750);
+                    float cc = map(smoothedAmplitude, 0, 0.5f, 0, 255);
+                    stroke(cc, 255, 255);
                     noFill();
                     rectMode(CENTER);
                     float sqSize = f;
                     float halfSize = f/2;
-        
-                    //sqSize += 5;
-                    //halfSize += 5;
+
                     square(cx, cy, sqSize);
                     line(cx + halfSize, cy + halfSize, width, height);
                     line(cx + halfSize, cy - halfSize, width, 0);
                     line(cx - halfSize, cy - halfSize, 0, 0);
                     line(cx - halfSize, cy + halfSize, 0, height);
+
         
                 }
                 break;
