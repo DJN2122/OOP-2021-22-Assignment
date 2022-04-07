@@ -24,6 +24,7 @@ public class Audio extends PApplet
 		if (key >= '0' && key <= '9') {
 			mode = key - '0';
 		}
+
 		if (keyCode == ' ') {
             if (ap.isPlaying()) {
                 ap.pause();
@@ -31,6 +32,10 @@ public class Audio extends PApplet
                 ap.rewind();
                 ap.play();
             }
+        }
+        
+        if (keyCode == ESC) {
+            exit();
         }
 	}
 
@@ -227,20 +232,63 @@ public class Audio extends PApplet
             }
             
             popMatrix();
+            break;
+        
+        case 6:
+        {
+            background(0);
             
-            }
-        
-        // Other examples we made in the class
-        /*
-        stroke(255);
-        fill(100, 255, 255);        
-        
-        circle(width / 2, halfH, lerpedA * 100);
-        circle(100, y, 50);
-        y += random(-10, 10);
-        smoothedY = lerp(smoothedY, y, 0.1f);        
-        circle(200, smoothedY, 50);
-        */
+            for (int i = 0; i < ab.size(); i += 10)
+            {
 
+
+                float f = lerpedBuffer[i] * halfH * 7.5f;
+                float col = map(i, 0, ab.size(), 0, 255);
+                stroke(col, 128, 127);
+                strokeWeight(2);
+
+                float modW = width + f;
+                float modH = height + f;
+                float zeroPoint = 0 + f;
+
+                modH += f * 1.3;
+                modW += f * 1.3;
+                // Makes stars appear randomly on screen
+                circle(i, halfH * f, 5);
+
+                // Butterfly wings made with lines
+                line(halfH, width/2, zeroPoint, modH/2);
+                line(halfH, width/2, modW/2, zeroPoint);
+            }
+
+            break;
+        }
+        case 7:
+        {
+            background(0);
+            strokeWeight(2);
+            stroke(255, 255, 255);
+            for(int i = 0 ; i < ab.size() ; i += 10)
+            {
+                float f = map(smoothedAmplitude, 0, 0.5f, 0, 500);
+                noFill();
+                rectMode(CENTER);
+                float sqSize = f;
+                float halfSize = f/2;
+
+                //sqSize += 5;
+                //halfSize += 5;
+                square(cx, cy, sqSize);
+                line(cx + halfSize, cy + halfSize, width, height);
+                line(cx + halfSize, cy - halfSize, width, 0);
+                line(cx - halfSize, cy - halfSize, 0, 0);
+                line(cx - halfSize, cy + halfSize, 0, height);
+
+            }
+            break;
+        }
+
+        
     }        
+}
 }
