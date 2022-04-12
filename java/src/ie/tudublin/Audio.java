@@ -182,7 +182,7 @@ public class Audio extends PApplet
                 }
                 break;
             }
-        case 6:
+        case 9:
             {
                 background(0);
                 strokeWeight(2);
@@ -263,26 +263,37 @@ public class Audio extends PApplet
 
             break;
         }
-        case 7:
+        case 8:
         {
             background(0);
             strokeWeight(2);
-            stroke(255, 255, 255);
+            int p = 10;
             for(int i = 0 ; i < ab.size() ; i += 10)
             {
+                float cc = map(i, 0, ab.size(), 0, 255);
+                stroke(cc, 255, 255);
                 float f = map(smoothedAmplitude, 0, 0.5f, 0, 500);
                 noFill();
                 rectMode(CENTER);
                 float sqSize = f;
                 float halfSize = f/2;
+                float j = lerpedBuffer[i] / halfH * 4.0f;
 
                 //sqSize += 5;
                 //halfSize += 5;
-                square(cx, cy, sqSize);
-                line(cx + halfSize, cy + halfSize, width, height);
-                line(cx + halfSize, cy - halfSize, width, 0);
-                line(cx - halfSize, cy - halfSize, 0, 0);
-                line(cx - halfSize, cy + halfSize, 0, height);
+                square(cx + p, cy + p, f);
+                square(cx - p, cy + p, f);
+                // line(cx + halfSize, cy + halfSize, width, height + j);
+                // line(cx + halfSize, cy - halfSize, width, 0 - j);
+                // line(cx - halfSize, cy - halfSize, 0, 0 - j);
+                // line(cx - halfSize, cy + halfSize, 0, height + j);
+                System.out.println(f);
+                if (f > 115);
+                {
+                    i = ab.size();
+                }
+
+                p += random(-1024, 1024);
 
             }
             break;
