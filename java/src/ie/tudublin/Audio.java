@@ -52,6 +52,7 @@ public class Audio extends PApplet
     // settings method
     public void settings()
     {
+        // size(1024,1000);
         fullScreen(P3D, SPAN); //P3D
     }
 
@@ -283,10 +284,78 @@ public class Audio extends PApplet
             }
                 break;
         }
+        case 8:
+        {
+            background(0);
+            strokeWeight(2);
+                
+            for(int i = 0 ; i < ab.size() ; i += 10)
+            {
+                float f = map(smoothedAmplitude, 0, 0.5f, 0, 750);
+                float j = lerpedBuffer[i] * halfH / 4.0f;
+                float cc = map(smoothedAmplitude, 0, 0.5f, 0, 255);
+                int msec = millis();
+                println(msec);
+                stroke(cc, 255, 255);
+                noFill();
+                float sqSize = f;
+                float halfSize = f/2;
+
+                float p = random(-1024, 1024);
+                // stroke(255);
+                // square(cx + p, cy + p, f*5);
+                // square(cx - p, cy + p, f*6);
+
+                background(0);
+                rectMode(CENTER);
+                // fill(255);
+                // circle(cx, cy, halfH);
+                // square(p * 2, cy, f);
+                // circle(cx, cy, f);
+                square(cx, cy, sqSize + j);
+                line(cx + halfSize, cy + halfSize, width, height + f / 2);
+                line(cx + halfSize, cy - halfSize, width, 0 - f / 2);
+                line(cx - halfSize, cy - halfSize, 0, 0 - f / 2);
+                line(cx - halfSize, cy + halfSize, 0, height + f / 2);
+
+                    if (msec > 55000)
+                    {
+                        background(0);
+                        square(cx, cy, sqSize + j);
+                    }
+
+                    if (msec > 62500)
+                    {
+                        float random = random(0, 255);
+                        background(0);
+                        stroke(random,255,255);
+                        square(cx + p, cy + p, sqSize/2 + j);
+                        square(cx - p, cy + p, sqSize/2 + j);
+                        square(cx + p /2, cy + p /2, sqSize/2 + j);
+                        square(cx - p /2, cy + p /2, sqSize/2 + j);
+                        square(cx - p /2, cy - p /2, sqSize/2 + j);
+                        square(cx + p /2, cy - p /2, sqSize/2 + j);
+
+                        
+                        break;
+                    }
+                    
+
+                    // if (f < 200)
+                    // {
+                    //     background(0);
+                    //     strokeWeight(4);
+                    //     circle(cx + p, cy + p, f/2);
+                    //     circle(cx - p, cy + p, f/2);
+                        
+                    //     break;
+                    // }
+                
+            }
+                break;
+        }
 
     }
 
 }
 }
-
-
