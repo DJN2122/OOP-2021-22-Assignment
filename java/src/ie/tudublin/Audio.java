@@ -354,6 +354,21 @@ public class Audio extends PApplet
             }
                 break;
         }
+        case 9:
+        {
+            // background(colour);
+
+            for(int i = 0 ; i < ab.size() ; i += 10)
+            {
+                int colour = (int) map(mouseX, 0, 600, 0, 255);
+                float f = map(smoothedAmplitude, 0, 0.5f, 0, 750);
+                
+                stroke(colour,colour,colour);
+                noFill();
+                circle(mouseX/2, cy, f);
+            }
+
+        }
 
     }
 
