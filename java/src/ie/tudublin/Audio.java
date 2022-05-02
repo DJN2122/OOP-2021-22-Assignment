@@ -32,12 +32,13 @@ public class Audio extends PApplet
     float smoothedY = 0;
     float smoothedAmplitude = 0;
 
-    String[] names = {"Sine Wave", "Circle", "Square", "Case 4", "Case 5", "Case 6", "Case 7", "Case 8", "Case 9"};
+    String[] names = {"Sine Wave", "Circle", "Square", "Case 4", "Case 5"};
 
     // Settings to set the size of the window to fullscreen
     public void settings()
 	{
 		fullScreen(P3D, SPAN);
+        // size(1024,1000);
 	}
 
     // Setup to load the mp3 file, to declare some variables and to chnage the colorMode to HSB
@@ -76,30 +77,40 @@ public class Audio extends PApplet
     // Mouse clicked function to allow the user to click on a number of options for the current display
     public void mouseClicked()
     {
-        int j = height/2 - height/4 -50;
+        int j = height/2 - height/5 -50;
+
+        System.out.println(mouseX + "    " + mouseY);
 
             for(int i = 0 ; i < names.length; i ++)
             {
-                j = j + height /17;
-                if(mouseX >= width/2 - height/3 - 75 && mouseX <= width/2 - height/3 + 75 && mouseY >= j - 40  && mouseY <= j + 25)
-                {
-                    int space = height/17;
+                // j = j + height /10;
+
+                int space = height/10;
                     
-                    // if statements to make sure the mouse clicked function changes the mode for whatever option is selected
-                    if (mouseY >= height/2 - height/4 - 40 && mouseY <= height/2 - height/4 + 25)
-                    {
-                        mode = 0; 
-                    }
+                // if statements to make sure the mouse clicked function changes the mode for whatever option is selected
+                if (mouseX >= width/2 - height/3 - 75 && mouseX <= width/2 - height/3 + 75 && mouseY >= height/2 - height/5 - 25 && mouseY <= height/2 - height/5 + 25)
+                {
+                    mode = 0; 
+                }
 
-                    if (mouseY >= height/2 - height/4 + space - 40 && mouseY <= height/2 - height/4 + space + 25)
-                    {
-                        mode = 1; 
-                    }
+                if (mouseX >= width/2 - height/3 - 75 && mouseX <= width/2 - height/3 + 75 && mouseY >= height/2 - height/5 + space - 25 && mouseY <= height/2 - height/5 + space + 25)
+                {
+                    mode = 1; 
+                }
 
-                    if (mouseY >= height/2 - height/4 + (space*2) - 40 && mouseY <= height/2 - height/4 + (space*2) + 25)
-                    {
-                        mode = 2; 
-                    }
+                if (mouseX >= width/2 - height/3 - 75 && mouseX <= width/2 - height/3 + 75 && mouseY >= height/2 - height/5 + (space)*2 - 25 && mouseY <= height/2 - height/5 + (space)*2 + 25)
+                {
+                    mode = 2; 
+                }
+
+                if (mouseX >= width/2 - height/3 - 75 && mouseX <= width/2 - height/3 + 75 && mouseY >= height/2 - height/5 + (space)*3 - 25 && mouseY <= height/2 - height/5 + (space)*3 + 25)
+                {
+                    mode = 3; 
+                }
+
+                if (mouseX >= width/2 - height/3 - 75 && mouseX <= width/2 - height/3 + 75 && mouseY >= height/2 - height/5 + (space)* - 25 && mouseY <= height/2 - height/5 + (space)*4 + 25)
+                {
+                    mode = 4; 
                 }
             }
     }
@@ -120,6 +131,7 @@ public class Audio extends PApplet
             sum += abs(ab.get(i));
             lerpedBuffer[i] = lerp(lerpedBuffer[i], ab.get(i), 0.05f);
         }
+
         average= sum / (float) ab.size();
 
         smoothedAmplitude = lerp(smoothedAmplitude, average, 0.1f);
@@ -132,13 +144,14 @@ public class Audio extends PApplet
                 background(0);
                 strokeWeight(2);
 
-                for(int i = width/4  ; i < ab.size() ; i ++)
+                for(int i = width/2 - height/4 - height/5; i < ab.size() ; i ++)
                 {
                     float c = map(i, 0, ab.size(), 0, 255);
                     stroke(c, 255, 255);
                     float f = lerpedBuffer[i] * height/2 * 4.0f;
-                    line(i + height/5, height/2 + f/5, i + height/5, height/2 - f/5);     
+                    line(i + height/5, height/2 + f/5, i + height/5, height/2 - f/5);  
                 }
+
 
                 strokeWeight(20);
                 stroke(255);
@@ -146,7 +159,7 @@ public class Audio extends PApplet
                 rectMode(CENTER);
                 square(width/2, height/2, height/2);
 
-                int j = height/2 - height/4;
+                int j = height/2 - height/5;
 
                 for(int i = 0 ; i < names.length; i ++)
                 {
@@ -157,7 +170,7 @@ public class Audio extends PApplet
                     textAlign(CENTER, CENTER);
                     textSize(25);
                     text(names[i], width/2 - height/3, j);
-                    j = j + height /17;
+                    j = j + height /10;
                 }
                 break;
             }
@@ -167,12 +180,17 @@ public class Audio extends PApplet
             {
                 background(0);
                 strokeWeight(2);
-                noFill();
+                fill(255);
 
                 float r = map(smoothedAmplitude, 0, 0.5f, 100, 2000);
                 float c = map(smoothedAmplitude, 0, 0.5f, 0, 255);
                 stroke(c, 255, 255);
-                circle(width/2, height/2, r/4);
+                // circle(width/2, height/2, 200);
+                // fill(0);
+                // circle(width/2 + 35, height/2 - 25, 50);
+                // circle(width/2 - 35, height/2 - 25, 50);
+                // circle(width/2 + 30, height/2 - 22, 5);
+                // circle(width/2 - 40, height/2 - 22, 5);
 
                 strokeWeight(20);
                 stroke(255);
@@ -180,7 +198,7 @@ public class Audio extends PApplet
                 rectMode(CENTER);
                 square(width/2, height/2, height/2);
 
-                int j = height/2 - height/4;
+                int j = height/2 - height/5;
 
                 for(int i = 0 ; i < names.length; i ++)
                 {
@@ -191,7 +209,7 @@ public class Audio extends PApplet
                     textAlign(CENTER, CENTER);
                     textSize(25);
                     text(names[i], width/2 - height/3, j);
-                    j = j + height /17;
+                    j = j + height /10;
                 }
                 break;
             }
@@ -200,8 +218,23 @@ public class Audio extends PApplet
             case 2:
             {
                 background(0);
-                stroke(255);
-                square(width/2, height/2, 200);
+                strokeWeight(2);
+
+                for(int i = 0 ; i < ab.size() ; i += 10)
+                {
+                    int colour = (int) map(mouseX, 0, 600, 0, 255);
+                    float f = map(smoothedAmplitude, 0, 0.5f, 0, 750);
+                    
+                    stroke(colour,colour,colour);
+                    noFill();
+                    circle(mouseX, mouseY, f);
+
+                    if (mouseX > width/2)
+                    {
+                        square(250, 250, 100);
+                    }
+                }
+
 
                 strokeWeight(20);
                 stroke(255);
@@ -209,7 +242,7 @@ public class Audio extends PApplet
                 rectMode(CENTER);
                 square(width/2, height/2, height/2);
 
-                int j = height/2 - height/4;
+                int j = height/2 - height/5;
 
                 for(int i = 0 ; i < names.length; i ++)
                 {
@@ -220,8 +253,129 @@ public class Audio extends PApplet
                     textAlign(CENTER, CENTER);
                     textSize(25);
                     text(names[i], width/2 - height/3, j);
-                    j = j + height /17;
+                    j = j + height /10;
                 }
+                break;
+            }
+
+            case 3:
+            {
+                background(0);
+                strokeWeight(2);
+                for(int i = 0 ; i < ab.size() ; i += 10)
+                {
+                    float cx = width/2;
+                    float cy = height/2;
+                    float f = map(smoothedAmplitude, 0, 0.5f, 0, 750);
+                    float j = lerpedBuffer[i] * height/2 / 4.0f;
+                    float cc = map(smoothedAmplitude, 0, 0.5f, 0, 255);
+                    int msec = millis();
+                    stroke(cc, 255, 255);
+                    noFill();
+                    float halfSize = f/2;
+
+                    float p = random(-270 + cy/4 + j, 270 - cy/4 + j);
+                    // stroke(255);
+                    // square(cx + p, cy + p, f*5);
+                    // square(cx - p, cy + p, f*6);
+
+                    background(0);
+                    rectMode(CENTER);
+                    // fill(255);
+                    // circle(cx, cy, halfH);
+                    // square(p * 2, cy, f);
+                    // circle(cx, cy, f);
+                    square(cx, cy, f/2);
+                    line(cx + halfSize/2, cy + halfSize/2, width/2 + height/4 , height/2 + height/4);
+                    line(cx + halfSize/2, cy - halfSize/2, width/2 + height/4, height/2 - height/4);
+                    line(cx - halfSize/2, cy - halfSize/2, width/2 - height/4, height/2 - height/4);
+                    line(cx - halfSize/2, cy + halfSize/2, width/2 - height/4, height/2 + height/4);
+
+                        if (msec > 55000)
+                        {
+                            background(0);
+                            square(cx, cy, f/2);
+                        }
+
+                        if (msec > 10)
+                        {
+                            float random = random(0, 255);
+                            background(0);
+                            stroke(random,255,255);
+                            // square(cx + p, cy + p, cx/4 + j);
+                            // square(cx - p, cy + p, cx/4 + j);
+                            square(cx + p, cy + p, cy/4 + j);
+                            square(cx - p, cy + p, cy/4 + j);
+                            square(cx - p, cy - p, cy/4 + j);
+                            square(cx + p, cy - p, cy/4 + j);
+
+                        }
+                        break;
+                }
+                    
+                strokeWeight(20);
+                stroke(255);
+                noFill();
+                rectMode(CENTER);
+                square(width/2, height/2, height/2);
+
+                int j = height/2 - height/5;
+
+                for(int i = 0 ; i < names.length; i ++)
+                {
+                    strokeWeight(2);
+                    fill(50,255,255);
+                    rect(width/2 - height/3, j, 150, 50);
+                    fill(0);
+                    textAlign(CENTER, CENTER);
+                    textSize(25);
+                    text(names[i], width/2 - height/3, j);
+                    j = j + height /10;
+                }
+                break;
+            }
+
+            case 4:
+            {
+                background(0);
+
+                strokeWeight(20);
+                stroke(255);
+                noFill();
+                rectMode(CENTER);
+                square(width/2, height/2, height/2);
+
+                int j = height/2 - height/5;
+
+                for(int i = 0 ; i < names.length; i ++)
+                {
+                    strokeWeight(2);
+                    fill(50,255,255);
+                    rect(width/2 - height/3, j, 150, 50);
+                    fill(0);
+                    textAlign(CENTER, CENTER);
+                    textSize(25);
+                    text(names[i], width/2 - height/3, j);
+                    j = j + height /10;
+                }
+
+                translate(width/2, height/2);
+                float cc = map(smoothedAmplitude, 0, 0.5f, 0, 255);
+
+                beginShape(); 
+                for(float i = 0; i < TWO_PI ; i += 0.1)
+                {
+                    float d = map(ab.get((int) i), 0, 1, 100, 200);
+                    noFill();
+                    stroke(cc, 255, 255);
+                     
+                    float x = d * cos(i);
+                    float y = d * sin(i);
+                    vertex(x, y);
+                }
+                endShape(CLOSE);
+
+                
                 break;
             }
 	    }
