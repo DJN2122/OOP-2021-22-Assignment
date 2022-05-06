@@ -32,7 +32,7 @@ public class Audio extends PApplet
     float smoothedY = 0;
     float smoothedAmplitude = 0;
 
-    String[] names = {"Sine Wave", "Circle", "Square", "Case 4", "Case 5"};
+    String[] names = {"Rose Pattern", "Phyllotaxis", "Square", "Dancing Box", "Noise Loop"};
 
     // Settings to set the size of the window to fullscreen
     public void settings()
@@ -188,18 +188,31 @@ public class Audio extends PApplet
             case 1:
             {
                 background(0);
-                strokeWeight(2);
-                fill(255);
+                // strokeWeight(2);
+                // fill(255);
 
-                float r = map(smoothedAmplitude, 0, 0.5f, 100, 2000);
-                float c = map(smoothedAmplitude, 0, 0.5f, 0, 255);
-                stroke(c, 255, 255);
-                // circle(width/2, height/2, 200);
-                // fill(0);
-                // circle(width/2 + 35, height/2 - 25, 50);
-                // circle(width/2 - 35, height/2 - 25, 50);
-                // circle(width/2 + 30, height/2 - 22, 5);
-                // circle(width/2 - 40, height/2 - 22, 5);
+                double n = 0;
+                float c = 4;
+
+                float f = map(smoothedAmplitude, 0, 0.5f, 0, 750);
+                float cc = map(smoothedAmplitude, 0, 0.5f, 0, 255);
+
+                for(int i=0 ; i<f*2; i++)
+                {
+                    float a = (float) (n * 137.5);
+                    float r = c * sqrt((float) n);
+                    float x = r * cos(a) + width/2;
+                    float y = r * sin(a) + height/2;
+
+                    fill(cc,255,255);
+                    stroke(0);
+
+                    ellipse(x,y,5,5);
+                    n++;
+                }
+
+
+                
 
                 strokeWeight(20);
                 stroke(255);
@@ -229,19 +242,23 @@ public class Audio extends PApplet
                 background(0);
                 strokeWeight(2);
 
-                for(int i = 0 ; i < ab.size() ; i += 10)
-                {
-                    int colour = (int) map(mouseX, 0, 600, 0, 255);
-                    float f = map(smoothedAmplitude, 0, 0.5f, 0, 750);
-                    
-                    stroke(colour,colour,colour);
-                    noFill();
-                    circle(mouseX, mouseY, f);
+                float f = map(smoothedAmplitude, 0, 0.5f, 0, 750);
+                float cc = map(smoothedAmplitude, 0, 0.5f, 0, 255);
+                int w = (int) random(-height/4 + 20, height/4 - 20);
 
-                    if (mouseX > width/2)
-                    {
-                        square(250, 250, 100);
-                    }
+                int cx = width/2;
+
+                for(int i = 0 ; i < 100 ; i += 10)
+                {
+                    stroke(cc,255,255); 
+                    fill(cc,255,255);
+                    circle(cx + w, height/2 + w, f/4);
+                    circle(cx - w, height/2 - w, f/4);
+                    circle(cx - w, height/2 + w, f/4);
+                    circle(cx + w, height/2 - w, f/4);
+
+                    cx += 1;
+
                 }
 
 
