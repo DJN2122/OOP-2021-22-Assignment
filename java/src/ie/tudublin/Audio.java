@@ -108,7 +108,7 @@ public class Audio extends PApplet
                     mode = 3; 
                 }
 
-                if (mouseX >= width/2 - height/3 - 75 && mouseX <= width/2 - height/3 + 75 && mouseY >= height/2 - height/5 + (space)* - 25 && mouseY <= height/2 - height/5 + (space)*4 + 25)
+                if (mouseX >= width/2 - height/3 - 75 && mouseX <= width/2 - height/3 + 75 && mouseY >= height/2 - height/5 + (space)*4 - 25 && mouseY <= height/2 - height/5 + (space)*4 + 25)
                 {
                     mode = 4; 
                 }
@@ -143,33 +143,42 @@ public class Audio extends PApplet
             {
                 background(0);
                 strokeWeight(2);
+                translate(width/2, height/2);
 
-                for(int i = width/2 - height/4 - height/5; i < ab.size() ; i ++)
+                beginShape();
+                for (float a = 0; a < TWO_PI; a += 0.02)
                 {
-                    float c = map(i, 0, ab.size(), 0, 255);
-                    stroke(c, 255, 255);
-                    float f = lerpedBuffer[i] * height/2 * 4.0f;
-                    line(i + height/5, height/2 + f/5, i + height/5, height/2 - f/5);  
-                }
+                    float f = map(smoothedAmplitude, 0, 0.5f, 0, 750);
+                    float cc = map(smoothedAmplitude, 0, 0.5f, 0, 255);
 
+                    noFill();
+                    
+                    float r = f/3 * cos(f*2 * a);
+                    float x = r * sin(a);
+                    float y = r * cos(a);
+                    stroke(cc, 255, 255);
+                    strokeWeight(4);
+                    vertex(x,y);
+                }
+                endShape(CLOSE);
 
                 strokeWeight(20);
                 stroke(255);
                 noFill();
                 rectMode(CENTER);
-                square(width/2, height/2, height/2);
+                square(0, 0, height/2);
 
-                int j = height/2 - height/5;
+                int j = - height/5;
 
                 for(int i = 0 ; i < names.length; i ++)
                 {
                     strokeWeight(2);
                     fill(50,255,255);
-                    rect(width/2 - height/3, j, 150, 50);
+                    rect(- height/3, j, 150, 50);
                     fill(0);
                     textAlign(CENTER, CENTER);
                     textSize(25);
-                    text(names[i], width/2 - height/3, j);
+                    text(names[i],- height/3, j);
                     j = j + height /10;
                 }
                 break;
