@@ -17,7 +17,7 @@ Group Assignment By Krystian Pakos, David Niculita & Ciaran McBride.
 
 Youtube video demo of project: 
 
-https://www.youtube.com/watch?v=J2kHSSFA4NU
+https://youtu.be/tZ086k3-DtY
 
 Our assignment creates 5 different audio visuals using the programming languange Java, Java processing and Papplet. The audio visuals are responsive to the music being played, the different sounds like the level bass etc.
 
